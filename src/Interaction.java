@@ -28,13 +28,11 @@ public class Interaction implements Writable {
 		this.interactedUser = interactedUser;
 	}
 
-	@Override
 	public void readFields(DataInput input) throws IOException {
 		this.interactingUser = input.readUTF();
 		this.interactedUser = input.readUTF();		
 	}
 
-	@Override
 	public void write(DataOutput output) throws IOException {
 		output.writeUTF(this.interactingUser);
 		output.writeUTF(this.interactedUser);
