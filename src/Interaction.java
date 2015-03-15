@@ -22,6 +22,26 @@ public class Interaction implements Writable {
 	 */
 	private String interactedUser;
 	
+	public Interaction() {
+    	super();	
+	}
+	
+	public String getInteractingUser() {
+		return interactingUser;
+	}
+
+	public void setInteractingUser(String interactingUser) {
+		this.interactingUser = interactingUser;
+	}
+
+	public String getInteractedUser() {
+		return interactedUser;
+	}
+
+	public void setInteractedUser(String interactedUser) {
+		this.interactedUser = interactedUser;
+	}
+
 	public Interaction(String interactiongUser, String interactedUser) {
 		super();
 		this.interactingUser = interactiongUser;
