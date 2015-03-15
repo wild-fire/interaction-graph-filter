@@ -2,3 +2,6 @@
 input
 output*
 .classpath
+/target/
+.settings
+.project
