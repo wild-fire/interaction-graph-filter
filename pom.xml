@@ -23,10 +23,5 @@
       <version>2.6.0</version>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-        <groupId>com.codesnippets4all</groupId>
-        <artifactId>quick-json</artifactId>
-        <version>1.0.4</version>
-    </dependency>
   </dependencies>
 </project>
