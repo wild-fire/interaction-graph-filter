@@ -1,5 +1,5 @@
 package interaction.jobs;
-import interaction.mappers.MentionMapper;
+import interaction.mappers.MentionUsersMapper;
 import interaction.reducers.InteractionReducer;
 import interaction.vos.Interaction;
 
@@ -16,7 +16,7 @@ public class MentionGraphExtractor {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(MentionGraphExtractor.class);
-		job.setMapperClass(MentionMapper.class);
+		job.setMapperClass(MentionUsersMapper.class);
 		//job.setCombinerClass(InteractionReducer.class);
 		job.setReducerClass(InteractionReducer.class);
 		job.setOutputKeyClass(Text.class);
