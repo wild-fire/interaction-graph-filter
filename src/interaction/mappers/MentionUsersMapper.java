@@ -28,10 +28,11 @@ public class MentionUsersMapper extends TweetMapper<Text, Interaction> {
 			
 			for (JsonElement mentionedUser : entities.get("user_mentions")
 					.getAsJsonArray()) {
-				Interaction mention = new Interaction(userId, mentionedUser
-						.getAsJsonObject().get("id_str").toString());
-		
-				context.write(new Text(formattedOutputDate), mention);
+				JsonObject mentionedUserObj = mentionedUser.getAsJsonObject(); 
+				if(!this.tweet.isRetweeting(mentionedUserObj.get("screen_name").getAsString())) {
+					Interaction mention = new Interaction(userId, mentionedUserObj.get("id").toString());
+					context.write(new Text(formattedOutputDate), mention);
+				}
 			}
 		}
 
