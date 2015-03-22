@@ -1,26 +1,16 @@
 package interaction.mappers;
 
+import interaction.vos.Tweet;
+
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Locale;
 
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
-import org.apache.hadoop.mapreduce.Mapper.Context;
-
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public abstract class TweetMapper<KeyOut, ValueOut> extends
 		Mapper<Object, Text, KeyOut, ValueOut> {
 
-	private JsonParser parser = new JsonParser();
-	final String TWITTER_DATE_FORMAT = "EEE MMM dd HH:mm:ss ZZZZZ yyyy";
-	private SimpleDateFormat dateInputFormat = new SimpleDateFormat(TWITTER_DATE_FORMAT, Locale.ENGLISH);
-	protected JsonObject tweet;
-	protected Date tweetDate;
+	protected Tweet tweet;
 	
 	public void map(Object key, Text value, Context context)
 			throws IOException, InterruptedException {
@@ -28,15 +18,8 @@ public abstract class TweetMapper<KeyOut, ValueOut> extends
 		// retrieve the json tweet
 		String[] tweetLine = value.toString().split("\t", 2);
 		
-		this.tweet = parser.parse(tweetLine[1]).getAsJsonObject();
-
-		// And now we parse the tweet date
-		this.tweetDate = new Date();
-		try {
-			tweetDate = dateInputFormat.parse(tweet.get("created_at").getAsString());
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
+		this.tweet = new Tweet(tweetLine[1]);
+		
 		
 		this.mapTweet(key, value, context);
 	}
