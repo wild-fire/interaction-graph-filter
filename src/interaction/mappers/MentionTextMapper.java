@@ -18,7 +18,7 @@ public class MentionTextMapper extends TweetMapper<Text, Text> {
 		JsonObject entities = this.tweet.get("entities").getAsJsonObject();
 		
 		if(entities.get("user_mentions").getAsJsonArray().size() > 0) {
-			String formattedOutputDate = dateOutputFormat.format(tweetDate);
+			String formattedOutputDate = dateOutputFormat.format(this.tweet.getTweetDate());
 			context.write(new Text(formattedOutputDate), new Text(this.tweet.get("text").getAsString()) );
 		}
 

@@ -3,18 +3,13 @@ package interaction.mappers;
 import interaction.vos.Interaction;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.Locale;
 
 import org.apache.hadoop.io.Text;
-import org.apache.hadoop.mapreduce.Mapper;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 public class MentionUsersMapper extends TweetMapper<Text, Interaction> {
 
@@ -27,7 +22,7 @@ public class MentionUsersMapper extends TweetMapper<Text, Interaction> {
 		JsonObject entities = this.tweet.get("entities").getAsJsonObject();
 
 		if(entities.get("user_mentions").getAsJsonArray().size() > 0) {
-			String formattedOutputDate = dateOutputFormat.format(tweetDate);
+			String formattedOutputDate = dateOutputFormat.format(this.tweet.getTweetDate());
 			String userId = this.tweet.get("user").getAsJsonObject().get("id_str")
 					.getAsString();
 			
