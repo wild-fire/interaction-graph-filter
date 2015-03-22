@@ -1,3 +1,8 @@
+package interaction.jobs;
+import interaction.mappers.MentionMapper;
+import interaction.reducers.InteractionReducer;
+import interaction.vos.Interaction;
+
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.Text;

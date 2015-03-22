@@ -1,3 +1,6 @@
+package interaction.reducers;
+import interaction.vos.Interaction;
+
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
