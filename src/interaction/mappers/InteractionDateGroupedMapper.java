@@ -28,6 +28,10 @@ public abstract class InteractionDateGroupedMapper extends
 	}
 
 	public void contextWriteToGroups(Context context, Interaction interaction) throws IOException, InterruptedException {
+		this.contextWriteToGroups(context, "", interaction);
+	}
+	
+	public void contextWriteToGroups(Context context, String label, Interaction interaction) throws IOException, InterruptedException {
 		// First we set the date to the calendar
 		this.calendar.setTime(this.tweet.getTweetDate());
 		// Then, for each group
@@ -36,7 +40,10 @@ public abstract class InteractionDateGroupedMapper extends
 			int weekNumber = this.calendar.get(Calendar.WEEK_OF_YEAR);
 			int group = weekNumber / weekGroup;
 
-			this.groupKey.set(String.format("%02dweeks-%d-%02d", weekGroup, this.calendar.get(Calendar.YEAR), group));
+			String format = label.isEmpty() ? "" : label + "-";
+			format += "%02dweeks-%d-%02d";
+			
+			this.groupKey.set(String.format(format, weekGroup, this.calendar.get(Calendar.YEAR), group));
 			
 			// Then we send this interaction to the reducers with the group as the key
 			context.write(this.groupKey, interaction);			
