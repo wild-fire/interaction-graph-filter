@@ -16,6 +16,7 @@ public class RetweetGraphExtractor {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
+		conf.set("weekOutputGroups", (args.length > 2) ? args[2] : "4" );
 		Job job = Job.getInstance(conf, "extract retweet graph");
 		job.setJarByClass(RetweetGraphExtractor.class);
 		job.setInputFormatClass(MixedFileInputFormat.class);
