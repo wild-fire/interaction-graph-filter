@@ -1,7 +1,8 @@
-* Next Version
+* Version 1.0.0
 
   - Customizable week grouping
   - Labeled interaction extraction job that searches for both mentions and retweets
+  - Semantic Versioning
 
 * Version 0.1
 
