@@ -36,7 +36,7 @@ public abstract class InteractionDateGroupedMapper extends
 			int weekNumber = this.calendar.get(Calendar.WEEK_OF_YEAR);
 			int group = weekNumber / weekGroup;
 
-			this.groupKey.set(String.format("%d-%02dweeks-%02d", this.calendar.get(Calendar.YEAR), weekGroup, group));
+			this.groupKey.set(String.format("%02dweeks-%d-%02d", weekGroup, this.calendar.get(Calendar.YEAR), group));
 			
 			// Then we send this interaction to the reducers with the group as the key
 			context.write(this.groupKey, interaction);			
