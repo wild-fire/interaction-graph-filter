@@ -34,6 +34,12 @@ hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/MentionGraphExtrac
 hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/RetweetGraphExtractor input output
 ```
 
+- For extracting the whole interaction graph:
+
+```
+hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/InteractionGraphExtractor input output
+```
+
 Being `input` and `output` the folders where the input files are and the output files will be placed.
 
 Optionally you could download the source code and then compile the files with
