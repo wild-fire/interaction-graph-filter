@@ -134,7 +134,27 @@ The second one is a format with an array of tweets per line:
 ```
 {"id":{"504713592":{"created_at":"Sun Dec 16 00:32:04 +0000 2007","id":504713592,"id_str":"504713592","text":"\u8d77\u304d\u305f\u3002\u5de6\u306e\u304f\u308b\u3076\u3057\u306e\u4e0a\u3042\u305f\u308a\u304c\u816b\u308c\u3066\u75db\u3044\u3002\u306a\u3093\u305e\u3053\u308c\u3002\u866b\u3055\u3055\u308c? \u4f4e\u6e29\u3084\u3051\u3069?","source":"\u003ca href=\"http:\/\/twitter.com\" rel=\"nofollow\"\u003eTwitter Web Client\u003c\/a\u003e","truncated":false,"in_reply_to_status_id":null,"in_reply_to_status_id_str":null,"in_reply_to_user_id":null,"in_reply_to_user_id_str":null,"in_reply_to_screen_name":null,"user":{"id":6376122,"id_str":"6376122"},"geo":null,"coordinates":null,"place":null,"contributors":null,"retweet_count":0,"favorite_count":0,"entities":{"hashtags":[],"symbols":[],"user_mentions":[],"urls":[]},"favorited":false,"retweeted":false,"lang":"ja"},...... }
 ```
+## Output format
+
+### Graph Jobs
+
+Graph Jobs return files containing connections between users with the following TSV format, being the columns: the user interacting (e.g: mentioning), the user receiving the interaction (e.g: being mentioned) and the number of ocurrences (the strength of the relationship).
+
+```
+33483\t4170491\t1
+33483\t14052066\t3
+33483\t335523\t7
+33483\t7693\t4
+```
+
+This files will be named after the format explained on the "Groupping interactions in time spans" section (e.g: 04weeks-2006-09-r-00000).
+
+However, the InteractionGraphExtractor will add a label to the output files to split mentions and retweets. This means that, instead of creating a single `04weeks-2006-09-r-00000` file, it will create two files `mentions-04weeks-2006-09-r-00000` and `retweets-04weeks-2006-09-r-00000`.
 
 ## Known Issues
 
 * I have worked with datasets consisting on old tweets, before retweet button even existed (activation post was published on November 2009: https://blog.twitter.com/2009/retweet-limited-rollout) and so none of the tweets have retweet metada and retweets are detected with keywords (e.g: 'via @user'). Including metada support would be a great improvement and a great pull request if anybodi is interested :)
+
+## Semantic Versioning
+
+This project tries to follow the Semantic Versioning ideas: http://semver.org/
