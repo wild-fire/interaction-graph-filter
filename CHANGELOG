@@ -1,0 +1,5 @@
+* Version 0.1
+
+  - First exported version
+  - Jobs for extracting mention graphs, retweet graphs and mentions text
+  - Mixed input format support (tweet in one line and JSON)
