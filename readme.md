@@ -12,7 +12,7 @@ mvn install
 
 If you have no Maven you can downolad it from http://maven.apache.org/ and maybe take a look at this quick maven tutorial: http://maven.apache.org/guides/getting-started/maven-in-five-minutes.html
 
-## Usage
+## Basic Usage
 
 On the jar folder you can find compiled jar files with all the classes required to run the jobs. To run them you just have to use the following commands:
 
@@ -43,6 +43,66 @@ mvn package
 ```
 
 and do your own JAR file.
+
+## Extended Usage
+
+### Groupping interactions in time spans
+
+By default, interactions are groupped in periods of 4 weeks. This way we will groups of similar length (28 days) of activity. But you can change the number of weeks the periods must take or even to group the interactions in more than group (e.g: group them on 4 weeks groups and 12 weeks groups).
+
+To do so just set as third parameter the number of weeks for each group, separated by comma.
+
+- Extracting the mentions graph in groups of 4 weeks:
+
+```
+hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/MentionGraphExtractor input output
+```
+
+Or
+
+```
+hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/MentionGraphExtractor input output 4
+```
+
+- Extracting the mentions graph in groups of 12 weeks:
+
+```
+hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/MentionGraphExtractor input output 12
+```
+
+- Extracting the mentions graph in groups of 4 weeks and 12 weeks:
+
+```
+hadoop jar interaction-graph-filter-0.1.jar  interaction/jobs/MentionGraphExtractor input output 4,12
+```
+
+Output files will be named after the grouping criteria, the year and the number of the group, as follows:
+
+```
+04weeks-2006-03-r-00000
+04weeks-2006-04-r-00000
+04weeks-2006-07-r-00000
+04weeks-2006-08-r-00000
+04weeks-2006-09-r-00000
+04weeks-2006-10-r-00000
+04weeks-2006-11-r-00000
+04weeks-2006-12-r-00000
+04weeks-2006-13-r-00000
+04weeks-2007-00-r-00000
+04weeks-2007-01-r-00000
+04weeks-2007-02-r-00000
+04weeks-2007-03-r-00000
+04weeks-2007-12-r-00000
+12weeks-2006-01-r-00000
+12weeks-2006-02-r-00000
+12weeks-2006-03-r-00000
+12weeks-2006-04-r-00000
+12weeks-2007-00-r-00000
+12weeks-2007-01-r-00000
+12weeks-2007-04-r-00000
+```
+
+where `04weeks-2006-09-r-00000` means "Grouping for each 4 weeks, this is the 9th group of 2006".
 
 ## Input formats
 
