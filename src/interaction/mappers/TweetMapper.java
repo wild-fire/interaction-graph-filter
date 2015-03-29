@@ -14,13 +14,7 @@ public abstract class TweetMapper<KeyOut, ValueOut> extends
 	
 	public void map(Object key, Text value, Context context)
 			throws IOException, InterruptedException {
-		// We get the file line which is "tweet_id \t tweet_json" and then
-		// retrieve the json tweet
-		String[] tweetLine = value.toString().split("\t", 2);
-		
-		this.tweet = new Tweet(tweetLine[1]);
-		
-		
+		this.tweet = new Tweet(value.toString());
 		this.mapTweet(key, value, context);
 	}
 
