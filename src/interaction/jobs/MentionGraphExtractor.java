@@ -15,6 +15,7 @@ public class MentionGraphExtractor {
 
 	public static void main(String[] args) throws Exception {
 		Configuration conf = new Configuration();
+		conf.set("weekOutputGroups", (args.length > 2) ? args[2] : "4" );
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(MentionGraphExtractor.class);
 		job.setInputFormatClass(MixedFileInputFormat.class);
