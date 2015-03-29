@@ -1,5 +1,6 @@
 package interaction.jobs;
 
+import interaction.input.MixedFileInputFormat;
 import interaction.mappers.RetweetUsersMapper;
 import interaction.reducers.InteractionReducer;
 import interaction.vos.Interaction;
@@ -17,6 +18,7 @@ public class RetweetGraphExtractor {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "extract retweet graph");
 		job.setJarByClass(RetweetGraphExtractor.class);
+		job.setInputFormatClass(MixedFileInputFormat.class);
 		job.setMapperClass(RetweetUsersMapper.class);
 		job.setReducerClass(InteractionReducer.class);
 		job.setOutputKeyClass(Text.class);

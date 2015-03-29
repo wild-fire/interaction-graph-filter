@@ -1,4 +1,5 @@
 package interaction.jobs;
+import interaction.input.MixedFileInputFormat;
 import interaction.mappers.MentionTextMapper;
 import interaction.reducers.TweetTextReducer;
 
@@ -20,6 +21,7 @@ public class MentionTextExtractor {
 		Configuration conf = new Configuration();
 		Job job = Job.getInstance(conf, "word count");
 		job.setJarByClass(MentionGraphExtractor.class);
+		job.setInputFormatClass(MixedFileInputFormat.class);
 		job.setMapperClass(MentionTextMapper.class);
 		job.setReducerClass(TweetTextReducer.class);
 		job.setOutputKeyClass(Text.class);
