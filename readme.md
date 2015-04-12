@@ -110,6 +110,47 @@ Output files will be named after the grouping criteria, the year and the number 
 
 where `04weeks-2006-09-r-00000` means "Grouping for each 4 weeks, this is the 9th group of 2006".
 
+### Amazon Elastic Map Reduce
+
+If you don't have a Hadoop cluster configured you may be interested in using this AWS feature that setups a cluster for you and allows you to run Hadoop jobs.
+
+First, upload all your input files to an S3 bucket of your choice. For this example we will use `my-emr-bucket`. You can do this with the s3cmd tool available on every linux:
+
+```
+$ s3cmd mb s3://my-emr-bucket
+$ s3cmd put my/local/files/* s3://my-emr-bucket/input/
+```
+
+Notice that we stored the files on `s3://my-emr-bucket/input/`.
+
+Now, upload the corresponding JAR file from this repo.
+
+```
+$ s3cmd put interaction-graph-filter-X.Y.Z.jar s3://my-emr-bucket/
+```
+
+Now, in the EMR Management Console try yo create a new cluster.
+
+In the configuration screen configure your log folder location: `s3://my-emr-bucket/log/`.
+
+In software configuration you can remove all the "Applications to be installed" as we are not using Pig, Hive or Hue.
+
+Here I have selected the 3.6.0 AMI Version with support for Hadoop 2.4.0
+
+In steps, add a custom JAR step.
+
+Name it as you like and in JAR Location write the location where you uploaded before: `s3://my-emr-bucket/interaction-graph-filter-X.Y.Z.jar`.
+
+In arguments place the argument we already saw for the regular execution but using the s3 routes as input and output folders:
+
+```
+interaction/jobs/MentionGraphExtractor s3://my-emr-bucket/input/ s3://my-emr-bucket/output/
+```
+
+This will run the Mention Graph Extractor task taking s3://my-emr-bucket/input/ as input and leaving the output files at s3://my-emr-bucket/output/
+
+Check auto-terminate if you want the cluster to be terminated after the job is done.
+
 ## Input formats
 
 The RecordReader is compatible with two formats of files.
