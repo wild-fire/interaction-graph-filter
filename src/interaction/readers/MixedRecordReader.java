@@ -107,6 +107,11 @@ public class MixedRecordReader extends RecordReader<LongWritable, Text> {
 					this.tweetsToProcess.push(entry.getValue().toString());
 				}
 			}
+			// If there are no tweets in this line (all the tweets came as null) then we skip to the next line
+			if(this.tweetsToProcess.isEmpty()) {
+				return this.nextLine();
+			}
+			
 		}
 		
 		// Now we store the tweets in this line (so we can track progress on this line)
