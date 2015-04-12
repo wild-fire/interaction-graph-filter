@@ -126,12 +126,12 @@ Notice that we stored the files on `s3://my-emr-bucket/input/`.
 Now, upload the corresponding JAR file from this repo.
 
 ```
-$ s3cmd put interaction-graph-filter-1.0.0.jar s3://my-emr-bucket/
+$ s3cmd put interaction-graph-filter-X.Y.Z.jar s3://my-emr-bucket/
 ```
 
 Now, in the EMR Management Console try yo create a new cluster.
 
-In the configuration screen condifure your log folder location: `s3://my-emr-bucket/log/`.
+In the configuration screen configure your log folder location: `s3://my-emr-bucket/log/`.
 
 In software configuration you can remove all the "Applications to be installed" as we are not using Pig, Hive or Hue.
 
@@ -139,7 +139,7 @@ Here I have selected the 3.6.0 AMI Version with support for Hadoop 2.4.0
 
 In steps, add a custom JAR step.
 
-Name it as you like and in JAR Location write the location where you uploaded before: `s3://my-emr-bucket/interaction-graph-filter-1.0.0.jar`.
+Name it as you like and in JAR Location write the location where you uploaded before: `s3://my-emr-bucket/interaction-graph-filter-X.Y.Z.jar`.
 
 In arguments place the argument we already saw for the regular execution but using the s3 routes as input and output folders:
 
