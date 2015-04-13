@@ -13,6 +13,7 @@ import org.apache.hadoop.mapreduce.lib.input.LineRecordReader;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
+import com.google.gson.JsonSyntaxException;
 
 public class MixedRecordReader extends RecordReader<LongWritable, Text> {
 
@@ -99,17 +100,21 @@ public class MixedRecordReader extends RecordReader<LongWritable, Text> {
 			// The TSV line. We just store the json and return
 			this.tweetsToProcess.push(splittedLine[1]);
 		} else {
-			// The JSON line. We have to parse the whole line and then store all the JSONs
-			JsonElement jsonLine = parser.parse(this.lineReader.getCurrentValue().toString());
-			// Only if the JSON is an object then we try to get the tweets. Otherwise, we ignore it as it's not a proper line
-			if(jsonLine.isJsonObject()) {
-				JsonElement tweets = jsonLine.getAsJsonObject().get("id");
-				for (Entry<String, JsonElement> entry : tweets.getAsJsonObject().entrySet()) {
-					// On the JSON files some tweets came as null. We don't send them to the mappers
-					if (!entry.getValue().isJsonNull()) {
-						this.tweetsToProcess.push(entry.getValue().toString());
+			try {			
+				// The JSON line. We have to parse the whole line and then store all the JSONs
+				JsonElement jsonLine = parser.parse(this.lineReader.getCurrentValue().toString());
+				// Only if the JSON is an object then we try to get the tweets. Otherwise, we ignore it as it's not a proper line
+				if(jsonLine.isJsonObject()) {
+					JsonElement tweets = jsonLine.getAsJsonObject().get("id");
+					for (Entry<String, JsonElement> entry : tweets.getAsJsonObject().entrySet()) {
+						// On the JSON files some tweets came as null. We don't send them to the mappers
+						if (!entry.getValue().isJsonNull()) {
+							this.tweetsToProcess.push(entry.getValue().toString());
+						}
 					}
 				}
+			} catch (JsonSyntaxException e) {
+				
 			}
 			// If there are no tweets in this line (e.g. all the tweets came as null) then we skip to the next line
 			if(this.tweetsToProcess.isEmpty()) {
