@@ -1,3 +1,7 @@
+* Next version
+
+  - Fixed issue with JSON lines that are not objects
+
 * Version 1.0.1
 
   - Fixed issue with lines without tweets on a JSON file
