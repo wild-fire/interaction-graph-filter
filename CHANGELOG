@@ -1,3 +1,7 @@
+* Next Version
+
+  - Fixed issue with dealing with malformed JSON lines
+
 * Version 1.0.2
 
   - Fixed issue with JSON lines that are not objects
