@@ -98,7 +98,11 @@ public class MixedRecordReader extends RecordReader<LongWritable, Text> {
 		String[] splittedLine = this.lineReader.getCurrentValue().toString().split("\t");
 		if(splittedLine.length == 2) {
 			// The TSV line. We just store the json and return
-			this.tweetsToProcess.push(splittedLine[1]);
+			JsonElement jsonLine = parser.parse(splittedLine[1]);
+			// Only if the JSON is an object then we push it
+			if(jsonLine.isJsonObject()) {
+				this.tweetsToProcess.push(jsonLine.toString());
+			}
 		} else {
 			try {			
 				// The JSON line. We have to parse the whole line and then store all the JSONs
@@ -116,11 +120,12 @@ public class MixedRecordReader extends RecordReader<LongWritable, Text> {
 			} catch (JsonSyntaxException e) {
 				
 			}
-			// If there are no tweets in this line (e.g. all the tweets came as null) then we skip to the next line
-			if(this.tweetsToProcess.isEmpty()) {
-				return this.nextLine();
-			}
 			
+		}
+
+		// If there are no tweets in this line (e.g. all the tweets came as null) then we skip to the next line
+		if(this.tweetsToProcess.isEmpty()) {
+			return this.nextLine();
 		}
 		
 		// Now we store the tweets in this line (so we can track progress on this line)
