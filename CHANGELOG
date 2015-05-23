@@ -1,3 +1,7 @@
+* Version 1.0.4
+
+  - Fixed issue with null tweets in the simple file format
+
 * Version 1.0.3
 
   - Fixed issue with dealing with malformed JSON lines
