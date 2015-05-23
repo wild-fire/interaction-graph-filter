@@ -1,3 +1,7 @@
+* Edge
+
+  - Fixed issue with line without ids in complex format
+
 * Version 1.0.4
 
   - Fixed issue with null tweets in the simple file format
